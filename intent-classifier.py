@@ -78,7 +78,7 @@ def home():
 # After loading id_to_intent from config.json
 # id_to_intent = {int(k): v for k, v in id_to_intent.items()}
 
-@app.route('/classify', methods=['POST'])
+@app.route('/ai/classify', methods=['POST'])
 def classify():
     if session is None:
         return jsonify({'error': 'Model not loaded. Check server logs for details.'}), 500
@@ -115,14 +115,14 @@ def softmax(x):
     return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
 
 
-@app.route('/health')
+@app.route('/ai/health')
 def health():
     if session is None:
         return jsonify({'status': 'error', 'message': 'Model not loaded'}), 500
     return jsonify({'status': 'ok', 'message': 'Service is running'})
 
 
-@app.route('/model_info')
+@app.route('/ai/model_info')
 def model_info():
     if session is None:
         return jsonify({'status': 'error', 'message': 'Model not loaded'}), 500
